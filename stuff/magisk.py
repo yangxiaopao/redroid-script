@@ -9,7 +9,6 @@ class Magisk(General):
     download_loc = get_download_dir()
     dl_link = "https://github.com/1q23lyc45/KitsuneMagisk/releases/download/v27.2-kitsune-4/app-debug.apk"
     dl_file_name = os.path.join(download_loc, "magisk.apk")
-    act_md5 = "876086158943fd1605b185a6fde1ed78"
     extract_to = "/tmp/magisk_unpack"
     copy_dir = "./magisk"
     magisk_dir = os.path.join(copy_dir, "system", "etc", "init", "magisk")
@@ -58,8 +57,10 @@ on property:init.svc.zygote=stopped
     """.format(arch=machine[1])
 
     def download(self):
+        if os.path.isfile(self.dl_file_name):
+            os.remove(self.dl_file_name)
         print_color("Downloading latest Magisk-Delta now .....", bcolors.GREEN)
-        super().download()   
+        download_file(self.dl_link, self.dl_file_name)    
 
     def copy(self):
         if os.path.exists(self.copy_dir):
@@ -72,13 +73,7 @@ on property:init.svc.zygote=stopped
 
         print_color("Copying magisk libs now ...", bcolors.GREEN)
         
-        arch_map = {
-            "x86": "x86",
-            "x86_64": "x86_64",
-            "arm": "armeabi-v7a",
-            "arm64": "arm64-v8a"
-        }
-        lib_dir = os.path.join(self.extract_to, "lib", arch_map[self.machine[0]])
+        lib_dir = os.path.join(self.extract_to, "lib", self.machine[0])
         for parent, dirnames, filenames in os.walk(lib_dir):
             for filename in filenames:
                 o_path = os.path.join(lib_dir, filename)  
@@ -86,11 +81,11 @@ on property:init.svc.zygote=stopped
                 n_path = os.path.join(self.magisk_dir, filename.group(1))
                 shutil.copyfile(o_path, n_path)
                 run(["chmod", "+x", n_path])
-        assets_dir = os.path.join(self.extract_to, "assets")
-        shutil.copyfile(os.path.join(assets_dir,"stub.apk"),os.path.join(self.magisk_dir,"stub.apk"))
-        shutil.copyfile(os.path.join(assets_dir,"boot_patch.sh"),os.path.join(self.magisk_dir,"boot_patch.sh"))
-        shutil.copyfile(os.path.join(assets_dir,"util_functions.sh"),os.path.join(self.magisk_dir,"util_functions.sh"))
-        shutil.copyfile(self.dl_file_name, os.path.join(self.magisk_dir,"magisk.apk"))
+        
+        shutil.copyfile(os.path.join(self.extract_to, "assets", "boot_patch.sh"), os.path.join(self.magisk_dir,"boot_patch.sh") )
+        shutil.copyfile(os.path.join(self.extract_to, "assets", "util_functions.sh"), os.path.join(self.magisk_dir,"util_functions.sh") )
+        shutil.copyfile(os.path.join(self.extract_to, "assets", "stub.apk"), os.path.join(self.magisk_dir,"stub.apk") )
+        shutil.copyfile(self.dl_file_name, os.path.join(self.magisk_dir,"magisk.apk") )
 
         # Updating Magisk from Magisk manager will modify bootanim.rc, 
         # So it is necessary to backup the original bootanim.rc.
