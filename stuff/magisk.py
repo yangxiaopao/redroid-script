@@ -37,7 +37,7 @@ on post-fs-data
     mkdir /sbin/.magisk 700
     mkdir /sbin/.magisk/mirror 700
     mkdir /sbin/.magisk/block 700
-    copy /system/etc/init/magisk/config /sbin/.magisk/config
+    touch /sbin/.magisk/config
     rm /dev/.magisk_unblock
     exec u:r:su:s0 root root -- /sbin/magisk --auto-selinux --post-fs-data
     wait /dev/.magisk_unblock 40
@@ -98,9 +98,9 @@ on property:init.svc.zygote=stopped
         gz_filename = os.path.join(bootanim_path)+".gz"
         with gzip.open(gz_filename,'wb') as f_gz:
             f_gz.write(self.oringinal_bootanim.encode('utf-8'))
-            run(["chmod", "644", gz_filename])
+        run(["chmod", "644", gz_filename])
         with open(bootanim_path, "w") as initfile:
             initfile.write(self.oringinal_bootanim+self.bootanim_component)
-            run(["chmod", "644", bootanim_path])
+        run(["chmod", "644", bootanim_path])
 
         os.chmod(bootanim_path, 0o644)
