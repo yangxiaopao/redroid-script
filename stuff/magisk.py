@@ -86,7 +86,11 @@ on property:init.svc.zygote=stopped
                 n_path = os.path.join(self.magisk_dir, filename.group(1))
                 shutil.copyfile(o_path, n_path)
                 run(["chmod", "+x", n_path])
-        shutil.copyfile(self.dl_file_name, os.path.join(self.magisk_dir,"magisk.apk") )
+        assets_dir = os.path.join(self.extract_to, "assets")
+        shutil.copyfile(os.path.join(assets_dir,"stub.apk"),os.path.join(self.magisk_dir,"stub.apk"))
+        shutil.copyfile(os.path.join(assets_dir,"boot_patch.sh"),os.path.join(self.magisk_dir,"boot_patch.sh"))
+        shutil.copyfile(os.path.join(assets_dir,"util_functions.sh"),os.path.join(self.magisk_dir,"util_functions.sh"))
+        shutil.copyfile(self.dl_file_name, os.path.join(self.magisk_dir,"magisk.apk"))
 
         # Updating Magisk from Magisk manager will modify bootanim.rc, 
         # So it is necessary to backup the original bootanim.rc.
