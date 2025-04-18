@@ -37,7 +37,7 @@ on post-fs-data
     mkdir /sbin/.magisk 700
     mkdir /sbin/.magisk/mirror 700
     mkdir /sbin/.magisk/block 700
-    touch /sbin/.magisk/config
+    copy /system/etc/init/magisk/config /sbin/.magisk/config
     rm /dev/.magisk_unblock
     exec u:r:su:s0 root root -- /sbin/magisk --auto-selinux --post-fs-data
     wait /dev/.magisk_unblock 40
