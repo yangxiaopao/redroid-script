@@ -7,9 +7,9 @@ from tools.helper import bcolors, download_file, host, print_color, run, get_dow
 
 class Magisk(General):
     download_loc = get_download_dir()
-    dl_link = "https://web.archive.org/web/20230718224206if_/https://objects.githubusercontent.com/github-production-release-asset-2e65be/514574759/50ec2f91-174b-4918-8587-04e847458bfd?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20230718%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230718T224206Z&X-Amz-Expires=300&X-Amz-Signature=ee54e872b4d3c1388601941e85b2fcf84d5e06968618271ea2f5e3ea5947d4e1&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=514574759&response-content-disposition=attachment%3B%20filename%3Dapp-debug.apk&response-content-type=application%2Fvnd.android.package-archive"
+    dl_link = "https://github.com/1q23lyc45/KitsuneMagisk/releases/download/v27.2-kitsune-4/app-release.apk"
     dl_file_name = os.path.join(download_loc, "magisk.apk")
-    act_md5 = "ec98dcee84a47785dc551eb7c465b25f"
+    act_md5 = "90580c3d5ba5da2faf995fac6f6c1eff"
     extract_to = "/tmp/magisk_unpack"
     copy_dir = "./magisk"
     magisk_dir = os.path.join(copy_dir, "system", "etc", "init", "magisk")
