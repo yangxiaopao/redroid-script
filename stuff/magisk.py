@@ -7,7 +7,7 @@ from tools.helper import bcolors, download_file, host, print_color, run, get_dow
 
 class Magisk(General):
     download_loc = get_download_dir()
-    dl_link = "https://github.com/1q23lyc45/KitsuneMagisk/releases/download/v27.2-kitsune-4/app-debug.apk"
+    dl_link = "https://dw.uptodown.net/dwn/vBsAjfzrWBkstl4NEgKSr55kIw6Uj9TXbmyCwptKkEM0wOaQU7IIv8rXRxX6mggDePFO5Sqx_LPjvbQrJa8ELcSqOYHia7Ep8Gc0xlkkNnYG-DPdAqNKc5-ZpHVNxB3n/Vsd9ZSBzdDjvhRI6HKzrHp4XacwO6fA7ZBClrBXtEoCqWh5XfMasq6s09SwVU5Ewdw5Nrd-S0IwKiepoCmy5NGs5S-WNwnsIjSo8xakJLSTFeIZdQYCMd4205XkJr24f/sEZVhNzxaBIsHJykHdCu5R1HCfJ2OqhtdUsIr3iYUSpW238egYm00nASBqukj0F4j_KeXD9Gk8fds4LSu7ztTh5-6wXg3FwfWiyG4PgpFN8=/magisk-delta-26-4-kitsune.apk"
     dl_file_name = os.path.join(download_loc, "magisk.apk")
     extract_to = "/tmp/magisk_unpack"
     copy_dir = "./magisk"
